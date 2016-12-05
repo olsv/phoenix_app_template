@@ -9,15 +9,30 @@ defmodule SociallApp.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :browser_session do
+    plug Guardian.Plug.VerifySession
+    plug Guardian.Plug.LoadResource
+  end
+
+  # pipeline :require_login do
+  #   plug Guardian.Plug.EnsureAuthenticated, handler: SociallApp.GuardianErrorHandler
+  # end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   scope "/", SociallApp do
-    pipe_through :browser # Use the default browser stack
+    pipe_through [:browser, :browser_session] # Use the default browser stack
 
+    resources "/user", UserController, except: [:delete, :index, :show]
+    resources "/sessions", SessionController, only: [:new, :create, :delete]
     get "/", PageController, :index
   end
+
+  # scope "/", SociallApp do
+  #   pipe_through [:browser, :browser_session, :require_login]
+  # end
 
   # Other scopes may use custom stacks.
   # scope "/api", SociallApp do

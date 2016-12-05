@@ -17,6 +17,13 @@ config :sociall_app, SociallApp.Endpoint,
   pubsub: [name: SociallApp.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
+config :guardian, Guardian,
+  issuer: "SociallApp.#{Mix.env}",
+  ttl: { 30, :days },
+  verify_issuer: true, # optional
+  secret_key: to_string(Mix.env),
+  serializer: SociallApp.GuardianSerializer
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
