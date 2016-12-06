@@ -1,6 +1,7 @@
 defmodule SociallApp.UserTest do
   use SociallApp.ModelCase
 
+  alias SociallApp.Repo
   alias SociallApp.User
 
   @valid_attrs %{email: "user@email.com",
@@ -29,5 +30,30 @@ defmodule SociallApp.UserTest do
     attrs = Map.drop(@valid_attrs, [:password, :password_confirmation])
     changeset = User.changeset(%User{}, attrs)
     refute Ecto.Changeset.get_change(changeset, :crypted_password)
+  end
+
+  test "authenticate returns error when email is nil" do
+    assert User.authenticate(nil, "some") == {:error, "Invalid Email/Password combination"}
+  end
+
+  test "authenticate returns error when password is nil" do
+    assert User.authenticate("some", nil) == {:error, "Invalid Email/Password combination"}
+  end
+
+  test "authenticate returns error when user does not exist" do
+    assert User.authenticate("invalid", "maybe correct") == {:error, "Invalid Email/Password combination"}
+  end
+
+  test "authenticate returns error when password is wrong" do
+    User.changeset(%User{}, @valid_attrs)
+    |> Repo.insert
+    assert User.authenticate(@valid_attrs.email, "wrong") == {:error, "Invalid Email/Password combination"}
+  end
+
+  test "authenticate returns user when params are valid" do
+    User.changeset(%User{}, @valid_attrs)
+    |> Repo.insert
+    user = Repo.get_by(User, email: @valid_attrs.email)
+    assert User.authenticate(@valid_attrs.email, @valid_attrs.password) == {:ok, user}
   end
 end
