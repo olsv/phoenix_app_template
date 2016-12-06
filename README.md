@@ -18,3 +18,6 @@ Ready to run in production? Please [check our deployment guides](http://www.phoe
   * Docs: https://hexdocs.pm/phoenix
   * Mailing list: http://groups.google.com/group/phoenix-talk
   * Source: https://github.com/phoenixframework/phoenix
+
+  ## License
+  See [LICENSE](https://raw.githubusercontent.com/olsv/phoenix_app_template/master/LICENSE).
