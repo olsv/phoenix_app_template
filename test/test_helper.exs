@@ -1,4 +1,4 @@
 ExUnit.start
 
-Ecto.Adapters.SQL.Sandbox.mode(SociallApp.Repo, :manual)
+Ecto.Adapters.SQL.Sandbox.mode(PhoenixAppTemplate.Repo, :manual)
 

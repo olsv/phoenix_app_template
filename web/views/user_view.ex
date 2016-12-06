@@ -1,3 +1,3 @@
-defmodule SociallApp.UserView do
-  use SociallApp.Web, :view
+defmodule PhoenixAppTemplate.UserView do
+  use PhoenixAppTemplate.Web, :view
 end

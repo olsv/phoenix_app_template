@@ -1,3 +1,3 @@
-defmodule SociallApp.PageView do
-  use SociallApp.Web, :view
+defmodule PhoenixAppTemplate.PageView do
+  use PhoenixAppTemplate.Web, :view
 end

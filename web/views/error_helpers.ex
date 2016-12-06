@@ -1,4 +1,4 @@
-defmodule SociallApp.ErrorHelpers do
+defmodule PhoenixAppTemplate.ErrorHelpers do
   @moduledoc """
   Conveniences for translating and building error messages.
   """
@@ -32,9 +32,9 @@ defmodule SociallApp.ErrorHelpers do
     #     dgettext "errors", "is invalid"
     #
     if count = opts[:count] do
-      Gettext.dngettext(SociallApp.Gettext, "errors", msg, msg, count, opts)
+      Gettext.dngettext(PhoenixAppTemplate.Gettext, "errors", msg, msg, count, opts)
     else
-      Gettext.dgettext(SociallApp.Gettext, "errors", msg, opts)
+      Gettext.dgettext(PhoenixAppTemplate.Gettext, "errors", msg, opts)
     end
   end
 end

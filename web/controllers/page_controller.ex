@@ -1,5 +1,5 @@
-defmodule SociallApp.PageController do
-  use SociallApp.Web, :controller
+defmodule PhoenixAppTemplate.PageController do
+  use PhoenixAppTemplate.Web, :controller
 
   def index(conn, _params) do
     render conn, "index.html"

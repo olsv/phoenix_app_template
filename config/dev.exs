@@ -6,7 +6,7 @@ use Mix.Config
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with brunch.io to recompile .js and .css sources.
-config :sociall_app, SociallApp.Endpoint,
+config :phoenix_app_template, PhoenixAppTemplate.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -16,7 +16,7 @@ config :sociall_app, SociallApp.Endpoint,
 
 
 # Watch static and templates for browser reloading.
-config :sociall_app, SociallApp.Endpoint,
+config :phoenix_app_template, PhoenixAppTemplate.Endpoint,
   live_reload: [
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
@@ -34,10 +34,10 @@ config :logger, :console, format: "[$level] $message\n"
 config :phoenix, :stacktrace_depth, 20
 
 # Configure your database
-config :sociall_app, SociallApp.Repo,
+config :phoenix_app_template, PhoenixAppTemplate.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "sociall_app_dev",
+  database: "phoenix_app_template_dev",
   hostname: "localhost",
   pool_size: 10

@@ -2,7 +2,7 @@ use Mix.Config
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :sociall_app, SociallApp.Endpoint,
+config :phoenix_app_template, PhoenixAppTemplate.Endpoint,
   http: [port: 4001],
   server: false
 
@@ -12,10 +12,10 @@ config :logger, level: :warn
 config :comeonin, bcrypt_log_rounds: 4
 
 # Configure your database
-config :sociall_app, SociallApp.Repo,
+config :phoenix_app_template, PhoenixAppTemplate.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "sociall_app_test",
+  database: "phoenix_app_template_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

@@ -6,23 +6,23 @@
 use Mix.Config
 
 # General application configuration
-config :sociall_app,
-  ecto_repos: [SociallApp.Repo]
+config :phoenix_app_template,
+  ecto_repos: [PhoenixAppTemplate.Repo]
 
 # Configures the endpoint
-config :sociall_app, SociallApp.Endpoint,
+config :phoenix_app_template, PhoenixAppTemplate.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "yJ6d6b30ch+mYhvmHvYPg5PcJnSB/TT76SGrxzELMDGnhRchF3doNLjfJ56lTU+c",
-  render_errors: [view: SociallApp.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: SociallApp.PubSub,
+  render_errors: [view: PhoenixAppTemplate.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: PhoenixAppTemplate.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 config :guardian, Guardian,
-  issuer: "SociallApp.#{Mix.env}",
+  issuer: "PhoenixAppTemplate.#{Mix.env}",
   ttl: { 30, :days },
   verify_issuer: true, # optional
   secret_key: to_string(Mix.env),
-  serializer: SociallApp.GuardianSerializer
+  serializer: PhoenixAppTemplate.GuardianSerializer
 
 # Configures Elixir's Logger
 config :logger, :console,

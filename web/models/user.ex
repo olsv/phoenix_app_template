@@ -1,9 +1,9 @@
-defmodule SociallApp.User do
-  use SociallApp.Web, :model
+defmodule PhoenixAppTemplate.User do
+  use PhoenixAppTemplate.Web, :model
   import Comeonin.Bcrypt, only: [hashpwsalt: 1, checkpw: 2, dummy_checkpw: 0]
 
-  alias SociallApp.Repo
-  alias SociallApp.User
+  alias PhoenixAppTemplate.Repo
+  alias PhoenixAppTemplate.User
 
   schema "users" do
     field :name, :string

@@ -1,7 +1,7 @@
-defmodule SociallApp.UserControllerTest do
-  use SociallApp.ConnCase
+defmodule PhoenixAppTemplate.UserControllerTest do
+  use PhoenixAppTemplate.ConnCase
 
-  alias SociallApp.User
+  alias PhoenixAppTemplate.User
   @valid_attrs %{name: "username",
                  email: "some@domain.com",
                  password: "somepass",

@@ -1,4 +1,4 @@
-defmodule SociallApp.ChannelCase do
+defmodule PhoenixAppTemplate.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -20,22 +20,22 @@ defmodule SociallApp.ChannelCase do
       # Import conveniences for testing with channels
       use Phoenix.ChannelTest
 
-      alias SociallApp.Repo
+      alias PhoenixAppTemplate.Repo
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
 
 
       # The default endpoint for testing
-      @endpoint SociallApp.Endpoint
+      @endpoint PhoenixAppTemplate.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(SociallApp.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(PhoenixAppTemplate.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(SociallApp.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(PhoenixAppTemplate.Repo, {:shared, self()})
     end
 
     :ok

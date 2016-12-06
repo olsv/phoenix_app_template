@@ -1,8 +1,8 @@
-defmodule SociallApp.LayoutViewTest do
-  use SociallApp.ConnCase, async: true
+defmodule PhoenixAppTemplate.LayoutViewTest do
+  use PhoenixAppTemplate.ConnCase, async: true
 
-  alias SociallApp.LayoutView
-  alias SociallApp.User
+  alias PhoenixAppTemplate.LayoutView
+  alias PhoenixAppTemplate.User
 
   @valid_attrs %{name: "username",
                  email: "some@domain.com",

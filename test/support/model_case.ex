@@ -1,4 +1,4 @@
-defmodule SociallApp.ModelCase do
+defmodule PhoenixAppTemplate.ModelCase do
   @moduledoc """
   This module defines the test case to be used by
   model tests.
@@ -16,20 +16,20 @@ defmodule SociallApp.ModelCase do
 
   using do
     quote do
-      alias SociallApp.Repo
+      alias PhoenixAppTemplate.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import SociallApp.ModelCase
+      import PhoenixAppTemplate.ModelCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(SociallApp.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(PhoenixAppTemplate.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(SociallApp.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(PhoenixAppTemplate.Repo, {:shared, self()})
     end
 
     :ok
@@ -59,7 +59,7 @@ defmodule SociallApp.ModelCase do
   """
   def errors_on(struct, data) do
     struct.__struct__.changeset(struct, data)
-    |> Ecto.Changeset.traverse_errors(&SociallApp.ErrorHelpers.translate_error/1)
+    |> Ecto.Changeset.traverse_errors(&PhoenixAppTemplate.ErrorHelpers.translate_error/1)
     |> Enum.flat_map(fn {key, errors} -> for msg <- errors, do: {key, msg} end)
   end
 end

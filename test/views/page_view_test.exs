@@ -1,3 +1,3 @@
-defmodule SociallApp.PageViewTest do
-  use SociallApp.ConnCase, async: true
+defmodule PhoenixAppTemplate.PageViewTest do
+  use PhoenixAppTemplate.ConnCase, async: true
 end

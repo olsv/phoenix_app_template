@@ -1,14 +1,14 @@
-defmodule SociallApp.Endpoint do
-  use Phoenix.Endpoint, otp_app: :sociall_app
+defmodule PhoenixAppTemplate.Endpoint do
+  use Phoenix.Endpoint, otp_app: :phoenix_app_template
 
-  socket "/socket", SociallApp.UserSocket
+  socket "/socket", PhoenixAppTemplate.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :sociall_app, gzip: false,
+    at: "/", from: :phoenix_app_template, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -35,8 +35,8 @@ defmodule SociallApp.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session,
     store: :cookie,
-    key: "_sociall_app_key",
+    key: "_phoenix_app_template_key",
     signing_salt: "+dmlV5Bj"
 
-  plug SociallApp.Router
+  plug PhoenixAppTemplate.Router
 end

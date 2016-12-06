@@ -1,5 +1,5 @@
-defmodule SociallApp.ErrorView do
-  use SociallApp.Web, :view
+defmodule PhoenixAppTemplate.ErrorView do
+  use PhoenixAppTemplate.Web, :view
 
   def render("404.html", _assigns) do
     "Page not found"

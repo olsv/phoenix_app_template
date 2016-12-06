@@ -1,3 +1,3 @@
-defmodule SociallApp.SessionView do
-  use SociallApp.Web, :view
+defmodule PhoenixAppTemplate.SessionView do
+  use PhoenixAppTemplate.Web, :view
 end

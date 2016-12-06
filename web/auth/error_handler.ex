@@ -1,5 +1,5 @@
-defmodule SociallApp.GuardianErrorHandler do
-  use SociallApp.Web, :controller
+defmodule PhoenixAppTemplate.GuardianErrorHandler do
+  use PhoenixAppTemplate.Web, :controller
 
   def unauthenticated(conn, _params) do
     conn

@@ -1,12 +1,12 @@
-defmodule SociallApp.Web do
+defmodule PhoenixAppTemplate.Web do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use SociallApp.Web, :controller
-      use SociallApp.Web, :view
+      use PhoenixAppTemplate.Web, :controller
+      use PhoenixAppTemplate.Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -30,12 +30,12 @@ defmodule SociallApp.Web do
     quote do
       use Phoenix.Controller
 
-      alias SociallApp.Repo
+      alias PhoenixAppTemplate.Repo
       import Ecto
       import Ecto.Query
 
-      import SociallApp.Router.Helpers
-      import SociallApp.Gettext
+      import PhoenixAppTemplate.Router.Helpers
+      import PhoenixAppTemplate.Gettext
     end
   end
 
@@ -49,9 +49,9 @@ defmodule SociallApp.Web do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import SociallApp.Router.Helpers
-      import SociallApp.ErrorHelpers
-      import SociallApp.Gettext
+      import PhoenixAppTemplate.Router.Helpers
+      import PhoenixAppTemplate.ErrorHelpers
+      import PhoenixAppTemplate.Gettext
     end
   end
 
@@ -65,10 +65,10 @@ defmodule SociallApp.Web do
     quote do
       use Phoenix.Channel
 
-      alias SociallApp.Repo
+      alias PhoenixAppTemplate.Repo
       import Ecto
       import Ecto.Query
-      import SociallApp.Gettext
+      import PhoenixAppTemplate.Gettext
     end
   end
 

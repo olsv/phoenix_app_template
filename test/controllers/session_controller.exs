@@ -1,6 +1,6 @@
-defmodule SociallApp.SessionControllerTest do
-  use SociallApp.ConnCase
-  alias SociallApp.User
+defmodule PhoenixAppTemplate.SessionControllerTest do
+  use PhoenixAppTemplate.ConnCase
+  alias PhoenixAppTemplate.User
 
   @valid_attrs %{name: "username",
                  email: "some@domain.com",

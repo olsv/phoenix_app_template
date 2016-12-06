@@ -1,8 +1,8 @@
-defmodule SociallApp.GuardianSerializer do
+defmodule PhoenixAppTemplate.GuardianSerializer do
   @behaviour Guardian.Serializer
 
-  alias SociallApp.Repo
-  alias SociallApp.User
+  alias PhoenixAppTemplate.Repo
+  alias PhoenixAppTemplate.User
 
   def for_token(user = %User{}), do: { :ok, "User:#{user.id}" }
   def for_token(_), do: { :error, "Unknown resource type" }

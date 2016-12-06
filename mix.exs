@@ -1,8 +1,8 @@
-defmodule SociallApp.Mixfile do
+defmodule PhoenixAppTemplate.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :sociall_app,
+    [app: :phoenix_app_template,
      version: "0.0.1",
      elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
@@ -17,7 +17,7 @@ defmodule SociallApp.Mixfile do
   #
   # Type `mix help compile.app` for more information.
   def application do
-    [mod: {SociallApp, []},
+    [mod: {PhoenixAppTemplate, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
                     :phoenix_ecto, :postgrex, :comeonin]]
   end

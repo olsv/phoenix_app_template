@@ -1,7 +1,7 @@
-defmodule SociallApp.UserController do
-  use SociallApp.Web, :controller
+defmodule PhoenixAppTemplate.UserController do
+  use PhoenixAppTemplate.Web, :controller
 
-  alias SociallApp.User
+  alias PhoenixAppTemplate.User
 
   def new(conn, _params) do
     changeset = User.changeset(%User{})

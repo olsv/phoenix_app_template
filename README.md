@@ -1,7 +1,8 @@
-# SociallApp
+# PhoenixAppTemplate
 
 To start your Phoenix app:
 
+  * Replace all occurrences of PhoenixAppTemplate and phoenix_app_template
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
   * Install Node.js dependencies with `npm install`

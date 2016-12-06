@@ -1,9 +1,9 @@
-defmodule SociallApp.SessionController do
-  use SociallApp.Web, :controller
+defmodule PhoenixAppTemplate.SessionController do
+  use PhoenixAppTemplate.Web, :controller
 
   plug :scrub_params, "user" when action in [:create]
 
-  alias SociallApp.User
+  alias PhoenixAppTemplate.User
 
   def new(conn, _params) do
     render(conn, "new.html", changeset: User.changeset(%User{}))

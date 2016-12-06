@@ -1,5 +1,5 @@
-defmodule SociallApp.PageControllerTest do
-  use SociallApp.ConnCase
+defmodule PhoenixAppTemplate.PageControllerTest do
+  use PhoenixAppTemplate.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"

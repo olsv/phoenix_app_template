@@ -1,4 +1,4 @@
-defmodule SociallApp.Repo.Migrations.CreateUser do
+defmodule PhoenixAppTemplate.Repo.Migrations.CreateUser do
   use Ecto.Migration
 
   def change do

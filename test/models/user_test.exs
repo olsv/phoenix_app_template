@@ -1,8 +1,8 @@
-defmodule SociallApp.UserTest do
-  use SociallApp.ModelCase
+defmodule PhoenixAppTemplate.UserTest do
+  use PhoenixAppTemplate.ModelCase
 
-  alias SociallApp.Repo
-  alias SociallApp.User
+  alias PhoenixAppTemplate.Repo
+  alias PhoenixAppTemplate.User
 
   @valid_attrs %{email: "user@email.com",
                  name: "some content",

@@ -1,3 +1,3 @@
-defmodule SociallApp.Repo do
-  use Ecto.Repo, otp_app: :sociall_app
+defmodule PhoenixAppTemplate.Repo do
+  use Ecto.Repo, otp_app: :phoenix_app_template
 end
