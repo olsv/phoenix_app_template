@@ -2,6 +2,6 @@ defmodule PhoenixAppTemplate.LayoutView do
   use PhoenixAppTemplate.Web, :view
 
   def current_user(conn) do
-    Plug.Conn.get_session(conn, :current_user)
+    Guardian.Plug.current_resource(conn)
   end
 end

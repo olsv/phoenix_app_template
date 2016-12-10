@@ -14,9 +14,9 @@ defmodule PhoenixAppTemplate.Router do
     plug Guardian.Plug.LoadResource
   end
 
-  # pipeline :require_login do
-  #   plug Guardian.Plug.EnsureAuthenticated, handler: PhoenixAppTemplate.GuardianErrorHandler
-  # end
+  pipeline :require_authentication do
+    plug Guardian.Plug.EnsureAuthenticated, handler: PhoenixAppTemplate.GuardianErrorHandler
+  end
 
   pipeline :api do
     plug :accepts, ["json"]
@@ -25,14 +25,18 @@ defmodule PhoenixAppTemplate.Router do
   scope "/", PhoenixAppTemplate do
     pipe_through [:browser, :browser_session] # Use the default browser stack
 
-    resources "/user", UserController, except: [:delete, :index, :show]
-    resources "/sessions", SessionController, only: [:new, :create, :delete]
+    resources "/user", UserController, only: [:new, :create]
+    resources "/session", SessionController, only: [:new, :create, :delete]
     get "/", PageController, :index
   end
 
-  # scope "/", PhoenixAppTemplate do
-  #   pipe_through [:browser, :browser_session, :require_login]
-  # end
+  scope "/", PhoenixAppTemplate do
+    # all requests within this scope require authentication
+    pipe_through [:browser, :browser_session, :require_authentication]
+
+    # singleton: true removes id from path
+    resources "/user", UserController, only: [:show, :edit, :update], singleton: true
+  end
 
   # Other scopes may use custom stacks.
   # scope "/api", PhoenixAppTemplate do

@@ -1,7 +1,9 @@
 defmodule PhoenixAppTemplate.UserController do
   use PhoenixAppTemplate.Web, :controller
+  import Guardian.Plug, only: [current_resource: 1]
 
   alias PhoenixAppTemplate.User
+
 
   def new(conn, _params) do
     changeset = User.changeset(%User{})
@@ -21,20 +23,17 @@ defmodule PhoenixAppTemplate.UserController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
-    render(conn, "show.html", user: user)
+  def show(conn, _params) do
+    render(conn, "show.html", user: current_resource(conn))
   end
 
-  def edit(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
-    changeset = User.changeset(user)
-    render(conn, "edit.html", user: user, changeset: changeset)
+  def edit(conn, _params) do
+    changeset = User.changeset(current_resource(conn))
+    render(conn, "edit.html", user: current_resource(conn), changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "user" => user_params}) do
-    user = Repo.get!(User, id)
-    changeset = User.changeset(user, user_params)
+  def update(conn, %{"user" => user_params}) do
+    changeset = User.changeset(current_resource(conn), user_params)
 
     case Repo.update(changeset) do
       {:ok, user} ->
@@ -42,19 +41,7 @@ defmodule PhoenixAppTemplate.UserController do
         |> put_flash(:info, "User updated successfully.")
         |> redirect(to: "/")
       {:error, changeset} ->
-        render(conn, "edit.html", user: user, changeset: changeset)
+        render(conn, "edit.html", user: current_resource(conn), changeset: changeset)
     end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    user = Repo.get!(User, id)
-
-    # Here we use delete! (with a bang) because we expect
-    # it to always work (and if it does not, it will raise).
-    Repo.delete!(user)
-
-    conn
-    |> put_flash(:info, "User deleted successfully.")
-    |> redirect(to: user_path(conn, :index))
   end
 end

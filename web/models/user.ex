@@ -29,6 +29,15 @@ defmodule PhoenixAppTemplate.User do
     |> hash_password
   end
 
+  def update_changeset(struct, params \\ %{}) do
+    struct
+    |> cast(params, [:name, :password, :password_confirmation])
+    |> validate_required([:name, :password, :password_confirmation])
+    |> validate_confirmation(:password, message: "does not match password")
+    |> validate_length(:password, min: 6)
+    |> hash_password
+  end
+
   def authenticate(email, password)
     when not is_nil(email) and not is_nil(password) do
     if user = Repo.get_by(User, email: email) do

@@ -27,7 +27,10 @@
 
       <main role="main">
         <%= if user = current_user(@conn) do %>
-          Logged in as <strong><%= user.name %></strong>
+          Logged in as
+          <strong>
+            <%= link user.name, to: user_path(@conn, :show) %>
+          </strong>
           <%= link "Logout", to: session_path(@conn, :delete, user.id), method: :delete %>
         <% else %>
           <%= link "Login", to: session_path(@conn, :new) %>

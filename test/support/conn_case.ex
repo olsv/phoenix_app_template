@@ -1,3 +1,5 @@
+require IEx
+
 defmodule PhoenixAppTemplate.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
@@ -29,6 +31,22 @@ defmodule PhoenixAppTemplate.ConnCase do
 
       # The default endpoint for testing
       @endpoint PhoenixAppTemplate.Endpoint
+
+      def guardian_login(%PhoenixAppTemplate.User{} = user), do: guardian_login(conn(), user, :token, [])
+      def guardian_login(%PhoenixAppTemplate.User{} = user, token), do: guardian_login(build_conn(), user, token, [])
+      def guardian_login(%PhoenixAppTemplate.User{} = user, token, opts), do: guardian_login(build_conn(), user, token, opts)
+
+      def guardian_login(%Plug.Conn{} = conn, user), do: guardian_login(conn, user, :token, [])
+      def guardian_login(%Plug.Conn{} = conn, user, token), do: guardian_login(conn, user, token, [])
+      def guardian_login(%Plug.Conn{} = conn, user, token, opts) do
+        conn
+          |> bypass_through(PhoenixAppTemplate.Router, [:browser])
+          |> get("/sessions/")
+          |> Guardian.Plug.sign_in(user, token, opts)
+          |> send_resp(200, "Logged in")
+          |> recycle()
+      end
+
     end
   end
 

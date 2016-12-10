@@ -13,8 +13,8 @@ defmodule PhoenixAppTemplate.SessionController do
     case User.authenticate(user_params["email"], user_params["password"]) do
       {:ok, user} ->
         conn
+        |> Guardian.Plug.sign_in(user)
         |> put_flash(:info, "Welcome back #{user.name}")
-        |> put_session(:current_user, %{id: user.id, name: user.name})
         |> redirect(to: "/")
       {:error, error_message} ->
         conn
@@ -26,7 +26,7 @@ defmodule PhoenixAppTemplate.SessionController do
 
   def delete(conn, _params) do
     conn
-    |> delete_session(:current_user)
+    |> Guardian.Plug.sign_out
     |> put_flash(:info, "See you later")
     |> redirect(to: "/")
   end
