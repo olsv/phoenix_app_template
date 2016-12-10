@@ -15,7 +15,7 @@ defmodule PhoenixAppTemplate.SessionController do
         conn
         |> Guardian.Plug.sign_in(user)
         |> put_flash(:info, "Welcome back #{user.name}")
-        |> redirect(to: "/")
+        |> redirect(to: root_path(conn, :index))
       {:error, error_message} ->
         conn
         |> put_flash(:error, error_message)
@@ -28,6 +28,6 @@ defmodule PhoenixAppTemplate.SessionController do
     conn
     |> Guardian.Plug.sign_out
     |> put_flash(:info, "See you later")
-    |> redirect(to: "/")
+    |> redirect(to: root_path(conn, :index))
   end
 end

@@ -17,7 +17,7 @@ defmodule PhoenixAppTemplate.UserController do
       {:ok, _user} ->
         conn
         |> put_flash(:info, "User created successfully.")
-        |> redirect(to: "/")
+        |> redirect(to: root_path(conn, :index))
       {:error, changeset} ->
         render(conn, "new.html", changeset: changeset)
     end

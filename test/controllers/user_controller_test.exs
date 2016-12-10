@@ -19,7 +19,7 @@ defmodule PhoenixAppTemplate.UserControllerTest do
 
   test "creates resource and redirects when data is valid", %{conn: conn} do
     conn = post conn, user_path(conn, :create), user: @valid_attrs
-    assert redirected_to(conn) == "/"
+    assert redirected_to(conn) == root_path(conn, :index)
     assert Repo.get_by(User, Map.take(@valid_attrs, [:email, :name]))
   end
 
@@ -39,7 +39,7 @@ defmodule PhoenixAppTemplate.UserControllerTest do
     user = Repo.insert! %User{}
     conn = guardian_login(conn, user)
     conn = put conn, user_path(conn, :update), user: @valid_attrs
-    assert redirected_to(conn) == "/"
+    assert redirected_to(conn) == user_path(conn, :show)
     assert Repo.get_by(User, Map.take(@valid_attrs, [:email, :name]))
   end
 

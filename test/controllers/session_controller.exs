@@ -23,7 +23,7 @@ defmodule PhoenixAppTemplate.SessionControllerTest do
     conn = post conn, session_path(conn, :create), user: attrs
     assert get_session(conn, :current_user)
     assert get_flash(conn, :info) == "Welcome back #{@valid_attrs.name}"
-    assert redirected_to(conn) == "/"
+    assert redirected_to(conn) == root_path(conn, :index)
   end
 
   test "does not create session with a wrong password", %{conn: conn} do
@@ -63,6 +63,6 @@ defmodule PhoenixAppTemplate.SessionControllerTest do
     conn = delete conn, session_path(conn, :delete, user.id)
     refute get_session(conn, :current_user)
     assert get_flash(conn, :info) == "See you later"
-    assert redirected_to(conn) == "/"
+    assert redirected_to(conn) == root_path(conn, :index)
   end
 end

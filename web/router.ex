@@ -27,7 +27,7 @@ defmodule PhoenixAppTemplate.Router do
 
     resources "/user", UserController, only: [:new, :create]
     resources "/session", SessionController, only: [:new, :create, :delete], singleton: true
-    get "/", PageController, :index
+    get "/", PageController, :index, as: :root
   end
 
   scope "/", PhoenixAppTemplate do
