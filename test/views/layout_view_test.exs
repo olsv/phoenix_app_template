@@ -22,7 +22,6 @@ defmodule PhoenixAppTemplate.LayoutViewTest do
   end
 
   test "current_user returns nil when user is not logged", %{conn: conn} do
-    user = Repo.get_by(User, email: @valid_attrs.email)
     conn = delete conn, session_path(conn, :delete)
     refute LayoutView.current_user(conn)
   end
