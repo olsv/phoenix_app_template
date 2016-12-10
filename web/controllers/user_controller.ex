@@ -36,10 +36,10 @@ defmodule PhoenixAppTemplate.UserController do
     changeset = User.changeset(current_resource(conn), user_params)
 
     case Repo.update(changeset) do
-      {:ok, user} ->
+      {:ok, _user} ->
         conn
         |> put_flash(:info, "User updated successfully.")
-        |> redirect(to: "/")
+        |> redirect(to: user_path(conn, :show))
       {:error, changeset} ->
         render(conn, "edit.html", user: current_resource(conn), changeset: changeset)
     end

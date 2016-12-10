@@ -26,7 +26,7 @@ defmodule PhoenixAppTemplate.Router do
     pipe_through [:browser, :browser_session] # Use the default browser stack
 
     resources "/user", UserController, only: [:new, :create]
-    resources "/session", SessionController, only: [:new, :create, :delete]
+    resources "/session", SessionController, only: [:new, :create, :delete], singleton: true
     get "/", PageController, :index
   end
 
