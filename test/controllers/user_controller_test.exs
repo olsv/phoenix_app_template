@@ -40,7 +40,10 @@ defmodule PhoenixAppTemplate.UserControllerTest do
     conn = guardian_login(conn, user)
     conn = put conn, user_path(conn, :update), user: @valid_attrs
     assert redirected_to(conn) == user_path(conn, :show)
-    assert Repo.get_by(User, Map.take(@valid_attrs, [:email, :name]))
+    updated_user = Repo.get_by(User, id: user.id)
+    # TODO needs to be improved
+    assert updated_user.name == @valid_attrs.name
+    assert updated_user.email == user.email
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do

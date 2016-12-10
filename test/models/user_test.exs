@@ -56,4 +56,17 @@ defmodule PhoenixAppTemplate.UserTest do
     user = Repo.get_by(User, email: @valid_attrs.email)
     assert User.authenticate(@valid_attrs.email, @valid_attrs.password) == {:ok, user}
   end
+
+  test "update_changeset should not validate email" do
+    changeset = User.update_changeset(%User{}, Map.drop(@valid_attrs, [:email]))
+    assert changeset.valid?
+  end
+
+  test "update_changeset should not change email of the existing user" do
+    {_ok, user} = Repo.insert User.changeset(%User{}, @valid_attrs)
+    changeset = User.update_changeset(user, Map.merge(@valid_attrs, %{email: "new_email@domen.com"}))
+    # TODO can it be improved?
+    assert {:ok, _user} = Repo.update(changeset)
+    assert Repo.get_by(User, id: user.id).email == user.email
+  end
 end

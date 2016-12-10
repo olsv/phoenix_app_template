@@ -11,11 +11,13 @@
     <%= error_tag f, :name %>
   </div>
 
-  <div class="form-group">
-    <%= label f, :email, class: "control-label" %>
-    <%= email_input f, :email, class: "form-control" %>
-    <%= error_tag f, :email %>
-  </div>
+  <%= if @behaviour == "create" do %>
+    <div class="form-group">
+      <%= label f, :email, class: "control-label" %>
+      <%= email_input f, :email, class: "form-control" %>
+      <%= error_tag f, :email %>
+    </div>
+  <% end %>
 
   <div class="form-group">
     <%= label f, :password, class: "control-label" %>
@@ -30,6 +32,6 @@
   </div>
 
   <div class="form-group">
-    <%= submit "Confirm", class: "btn btn-primary" %>
+    <%= submit (if @behaviour == "create", do: "SignUp", else: "Update"), class: "btn btn-primary" %>
   </div>
 <% end %>

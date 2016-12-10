@@ -28,12 +28,12 @@ defmodule PhoenixAppTemplate.UserController do
   end
 
   def edit(conn, _params) do
-    changeset = User.changeset(current_resource(conn))
+    changeset = User.update_changeset(current_resource(conn))
     render(conn, "edit.html", user: current_resource(conn), changeset: changeset)
   end
 
   def update(conn, %{"user" => user_params}) do
-    changeset = User.changeset(current_resource(conn), user_params)
+    changeset = User.update_changeset(current_resource(conn), user_params)
 
     case Repo.update(changeset) do
       {:ok, _user} ->
