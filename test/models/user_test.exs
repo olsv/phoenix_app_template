@@ -3,6 +3,8 @@ defmodule PhoenixAppTemplate.UserTest do
 
   alias PhoenixAppTemplate.Repo
   alias PhoenixAppTemplate.User
+  alias PhoenixAppTemplate.Identity
+  alias Ueberauth.Auth
 
   @valid_attrs %{email: "user@email.com",
                  name: "some content",
@@ -68,5 +70,38 @@ defmodule PhoenixAppTemplate.UserTest do
     # TODO can it be improved?
     assert {:ok, _user} = Repo.update(changeset)
     assert Repo.get_by(User, id: user.id).email == user.email
+  end
+
+  test "create a user from oauth" do
+    email = "newuser@email.com"
+    name = "some"
+    auth = %Auth{provider: :google, uid: "1", info: %{email: email, name: name}}
+    User.get_or_create_by_oauth(auth)
+    user = Repo.get_by(User, email: email, name: name)
+    assert user
+    assert Repo.get_by(Identity, user_id: user.id, provider: "google", uid: "1")
+  end
+
+  test "add a social_account to the existing user" do
+    {_ok, user} = Repo.insert User.changeset(%User{}, @valid_attrs)
+    email = @valid_attrs.email
+    name = @valid_attrs.name
+    auth = %Auth{provider: :google, uid: "2", info: %{email: email, name: name}}
+    User.get_or_create_by_oauth(auth)
+    assert Repo.get_by(Identity, user_id: user.id, provider: "google", uid: "2")
+  end
+
+  test "return existing user for social account" do
+    {_ok, user} = Repo.insert User.changeset(%User{}, @valid_attrs)
+    {_ok, _account} = Repo.insert(%Identity{user_id: user.id, provider: "some", uid: "3"})
+    auth = %Auth{provider: :some, uid: "3", info: %{}}
+    {:ok, new_user} = User.get_or_create_by_oauth(auth)
+    assert new_user.id == user.id
+  end
+
+  test "return changeset for the invalid oauth" do
+    auth = %Auth{provider: :some, uid: "3", info: %{name: "some", email: "invalid"}}
+    {:error, changeset} = User.get_or_create_by_oauth(auth)
+    refute changeset.valid?
   end
 end

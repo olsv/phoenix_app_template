@@ -19,7 +19,7 @@ defmodule PhoenixAppTemplate.Mixfile do
   def application do
     [mod: {PhoenixAppTemplate, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :comeonin]]
+                    :phoenix_ecto, :postgrex, :comeonin, :ueberauth, :ueberauth_google]]
   end
 
   # Specifies which paths to compile per environment.
@@ -32,14 +32,17 @@ defmodule PhoenixAppTemplate.Mixfile do
   defp deps do
     [{:phoenix, "~> 1.2.1"},
      {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.0"},
+     {:phoenix_ecto, "~> 3.2"},
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:guardian, "~> 0.13.0"},
      {:comeonin, "~> 3.0"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+     {:oauth, github: "tim/erlang-oauth"},
+     {:ueberauth, "~> 0.4"},
+     {:ueberauth_google, "~> 0.4"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.

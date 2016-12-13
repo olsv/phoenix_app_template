@@ -24,6 +24,16 @@ config :guardian, Guardian,
   secret_key: to_string(Mix.env),
   serializer: PhoenixAppTemplate.GuardianSerializer
 
+config :ueberauth, Ueberauth,
+  # base_path: "/session", # Allows to override default "/auth"
+  providers: [
+    google: {Ueberauth.Strategy.Google, []}
+  ]
+
+config :ueberauth, Ueberauth.Strategy.Google.OAuth,
+  client_id: System.get_env("GOOGLE_CLIENT_ID"),
+  client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

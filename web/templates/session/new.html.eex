@@ -3,4 +3,4 @@
 <%= render "form.html", changeset: @changeset,
                         action: session_path(@conn, :create) %>
 
-<%= link "Back", to: root_path(@conn, :index) %>
+<%= link "Google+", to: oauth_path(@conn, :new, "google") %>

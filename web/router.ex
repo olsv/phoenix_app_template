@@ -22,12 +22,23 @@ defmodule PhoenixAppTemplate.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/auth", PhoenixAppTemplate do
+    pipe_through [:browser, :browser_session] # do we need :browser_session ?
+
+    resources "/", SessionController, only: [:new, :create, :delete], singleton: true
+
+    # fallback to password based session when no suitable provider
+    # we also need a named route because resources#new won't allow to use helper
+    get "/:provider", SessionController, :new, as: :oauth
+    get "/:provider/callback", SessionController, :callback
+  end
+
   scope "/", PhoenixAppTemplate do
     pipe_through [:browser, :browser_session] # Use the default browser stack
 
     resources "/user", UserController, only: [:new, :create]
-    resources "/session", SessionController, only: [:new, :create, :delete], singleton: true
     get "/", PageController, :index, as: :root
+    get "/pages/:page", PageController, :show
   end
 
   scope "/", PhoenixAppTemplate do
