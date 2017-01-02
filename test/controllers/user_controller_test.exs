@@ -29,14 +29,14 @@ defmodule PhoenixAppTemplate.UserControllerTest do
   end
 
   test "renders form for editing chosen resource", %{conn: conn} do
-    user = Repo.insert! %User{}
+    user = Repo.insert! %User{email: @valid_attrs.email}
     conn = guardian_login(conn, user)
     conn = get conn, user_path(conn, :edit)
     assert html_response(conn, 200) =~ "Edit user"
   end
 
   test "updates chosen resource and redirects when data is valid", %{conn: conn} do
-    user = Repo.insert! %User{}
+    user = Repo.insert! %User{email: "original@email.com"}
     conn = guardian_login(conn, user)
     conn = put conn, user_path(conn, :update), user: @valid_attrs
     assert redirected_to(conn) == user_path(conn, :show)
@@ -47,7 +47,7 @@ defmodule PhoenixAppTemplate.UserControllerTest do
   end
 
   test "does not update chosen resource and renders errors when data is invalid", %{conn: conn} do
-    user = Repo.insert! %User{}
+    user = Repo.insert! User.changeset(%User{}, @valid_attrs)
     conn = guardian_login(conn, user)
     conn = put conn, user_path(conn, :update), user: @invalid_attrs
     assert html_response(conn, 200) =~ "Edit user"

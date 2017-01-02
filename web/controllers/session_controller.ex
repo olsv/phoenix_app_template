@@ -30,9 +30,9 @@ defmodule PhoenixAppTemplate.SessionController do
       {:ok, user} ->
         conn
         |> handle_authenticated(user)
-      {:error, error_message} ->
+      {:error, _} ->
         conn
-        |> handle_authentication_error(error_message)
+        |> handle_authentication_error("Invalid Email/Password combination")
     end
   end
 

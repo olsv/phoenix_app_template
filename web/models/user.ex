@@ -28,6 +28,7 @@ defmodule PhoenixAppTemplate.User do
     |> validate_required([:name, :email, :password, :password_confirmation])
     |> validate_confirmation(:password, message: "does not match password")
     |> validate_format(:email, ~r/@/)
+    |> update_change(:email, &String.downcase/1)
     |> validate_length(:password, min: 6)
     |> hash_password
   end
@@ -46,23 +47,22 @@ defmodule PhoenixAppTemplate.User do
     |> cast(params, [:name, :email])
     |> validate_required([:name, :email])
     |> validate_format(:email, ~r/@/)
+    |> update_change(:email, &String.downcase/1)
     |> unique_constraint(:email)
   end
 
   def authenticate(email, password)
     when not is_nil(email) and not is_nil(password) do
-    if user = Repo.get_by(User, email: email) do
-      if checkpw(password, user.crypted_password) do
-        {:ok, user}
-      else
-        handle_invalid_user()
-      end
+
+    user = Repo.get_by(User, email: email)
+    if user && checkpw(password, user.crypted_password) do
+      {:ok, user}
     else
-      handle_invalid_user()
+      dummy_checkpw() # prevent time based attacks
+      {:error, "invalid"}
     end
   end
-
-  def authenticate(_email, _password), do: handle_invalid_user()
+  def authenticate(_email, _password), do: {:error, "invalid"}
 
   def get_or_create_by_oauth(%Auth{provider: provider, info: info, uid: uid}) do
     if user = Identity.get_user(provider, uid) do
@@ -92,11 +92,6 @@ defmodule PhoenixAppTemplate.User do
   end
   defp create_by_oauth(%{email: email, name: name}) do
     {:error, User.oauth_changeset(%User{}, %{email: email, name: name})}
-  end
-
-  defp handle_invalid_user() do
-    dummy_checkpw() # prevent time based attacks
-    {:error, "Invalid Email/Password combination"}
   end
 
   defp hash_password(changeset) do

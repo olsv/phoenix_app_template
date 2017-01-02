@@ -34,29 +34,43 @@ defmodule PhoenixAppTemplate.UserTest do
     refute Ecto.Changeset.get_change(changeset, :crypted_password)
   end
 
+  test "changeset should have downcased email" do
+    changeset = User.changeset(%User{}, %{email: "SOME@user.com"})
+    assert changeset.changes.email == "some@user.com"
+  end
+
+  test "oauth changeset should have downcased email" do
+    changeset = User.oauth_changeset(%User{}, %{email: "SOME@user.com"})
+    assert changeset.changes.email == "some@user.com"
+  end
+
   test "authenticate returns error when email is nil" do
-    assert User.authenticate(nil, "some") == {:error, "Invalid Email/Password combination"}
+    assert User.authenticate(nil, "some") == {:error, "invalid"}
   end
 
   test "authenticate returns error when password is nil" do
-    assert User.authenticate("some", nil) == {:error, "Invalid Email/Password combination"}
+    assert User.authenticate("some", nil) == {:error, "invalid"}
   end
 
   test "authenticate returns error when user does not exist" do
-    assert User.authenticate("invalid", "maybe correct") == {:error, "Invalid Email/Password combination"}
+    assert User.authenticate("invalid", "correct") == {:error, "invalid"}
   end
 
   test "authenticate returns error when password is wrong" do
     User.changeset(%User{}, @valid_attrs)
     |> Repo.insert
-    assert User.authenticate(@valid_attrs.email, "wrong") == {:error, "Invalid Email/Password combination"}
+    assert User.authenticate(@valid_attrs.email, "wrong") == {:error, "invalid"}
   end
 
   test "authenticate returns user when params are valid" do
-    User.changeset(%User{}, @valid_attrs)
-    |> Repo.insert
-    user = Repo.get_by(User, email: @valid_attrs.email)
-    assert User.authenticate(@valid_attrs.email, @valid_attrs.password) == {:ok, user}
+    User.changeset(%User{}, @valid_attrs) |> Repo.insert
+    %{email: email, password: password} = @valid_attrs
+    user = Repo.get_by(User, email: email)
+
+    {:ok, record} = User.authenticate(email, password)
+    assert record == user
+    {:ok, record} = User.authenticate(String.upcase(email), password)
+    assert record == user
   end
 
   test "update_changeset should not validate email" do
@@ -65,11 +79,11 @@ defmodule PhoenixAppTemplate.UserTest do
   end
 
   test "update_changeset should not change email of the existing user" do
-    {_ok, user} = Repo.insert User.changeset(%User{}, @valid_attrs)
-    changeset = User.update_changeset(user, Map.merge(@valid_attrs, %{email: "new_email@domen.com"}))
-    # TODO can it be improved?
-    assert {:ok, _user} = Repo.update(changeset)
-    assert Repo.get_by(User, id: user.id).email == user.email
+    params = Map.merge(@valid_attrs, %{email: "new_email@domen.com"})
+    changeset = User.update_changeset(%User{}, params)
+
+    assert changeset.valid?
+    refute changeset.changes[:email]
   end
 
   test "create a user from oauth" do
