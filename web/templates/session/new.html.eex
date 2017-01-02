@@ -4,3 +4,4 @@
                         action: session_path(@conn, :create) %>
 
 <%= link "Google+", to: oauth_path(@conn, :new, "google") %>
+<%= link "VK", to: oauth_path(@conn, :new, "vk") %>

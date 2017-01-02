@@ -27,12 +27,17 @@ config :guardian, Guardian,
 config :ueberauth, Ueberauth,
   # base_path: "/session", # Allows to override default "/auth"
   providers: [
-    google: {Ueberauth.Strategy.Google, []}
+    google: {Ueberauth.Strategy.Google, []},
+    vk: {Ueberauth.Strategy.VK, [default_scope: "email"]}
   ]
 
 config :ueberauth, Ueberauth.Strategy.Google.OAuth,
   client_id: System.get_env("GOOGLE_CLIENT_ID"),
   client_secret: System.get_env("GOOGLE_CLIENT_SECRET")
+
+config :ueberauth, Ueberauth.Strategy.VK.OAuth,
+  client_id: System.get_env("VK_CLIENT_ID"),
+  client_secret: System.get_env("VK_CLIENT_SECRET")
 
 # Configures Elixir's Logger
 config :logger, :console,

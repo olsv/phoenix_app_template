@@ -91,7 +91,8 @@ defmodule PhoenixAppTemplate.User do
     end
   end
   defp create_by_oauth(%{email: email, name: name}) do
-    {:error, User.oauth_changeset(%User{}, %{email: email, name: name})}
+    changeset = User.oauth_changeset(%User{}, %{email: email, name: name})
+    {:error, %{changeset | action: :insert}}
   end
 
   defp hash_password(changeset) do

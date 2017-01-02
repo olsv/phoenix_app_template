@@ -25,13 +25,10 @@ defmodule PhoenixAppTemplate.Identity do
   @doc """
   Adds a new identity to the specified `user`.
   Returns an empty changeset unless `user` is a %User{}
-  Accepts either atom or string as the `provider`
   """
-  def add_identity(%User{} = user, provider, uid) when is_atom(provider) do
-    add_identity(user, to_string(provider), uid)
-  end
   def add_identity(%User{} = user, provider, uid) do
-    changeset(%Identity{}, %{uid: uid, provider: provider})
+    params = %{provider: to_string(provider), uid: to_string(uid)}
+    changeset(%Identity{}, params)
     |> put_assoc(:user, user)
     |> Repo.insert
   end
@@ -45,17 +42,13 @@ defmodule PhoenixAppTemplate.Identity do
   @doc """
   Returns %User{} record related to the `provider` and `uid`
   Returns nil unless identity exists
-  Accepts either atom or string as the `provider`
   """
-  def get_user(provider, uid) when is_atom(provider) do
-    get_user(to_string(provider), uid)
-  end
   def get_user(provider, uid) do
     User
     |> first
     |> join(:inner, [u], a in assoc(u, :identities))
-    |> where([_, a], a.provider == ^provider )
-    |> where([_, a], a.uid == ^uid)
+    |> where([_, a], a.provider == ^to_string(provider) )
+    |> where([_, a], a.uid == ^to_string(uid))
     |> Repo.one
   end
 end
