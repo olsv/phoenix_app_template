@@ -6,28 +6,37 @@
   <% end %>
 
   <div class="form-group">
-    <%= label f, :name, class: "control-label" %>
-    <%= text_input f, :name, class: "form-control" %>
+    <%= text_input f, :name,
+                      class: "form-control",
+                      required: true,
+                      placeholder: "Your name" %>
     <%= error_tag f, :name %>
   </div>
 
   <%= if @behaviour == "create" do %>
     <div class="form-group">
-      <%= label f, :email, class: "control-label" %>
-      <%= email_input f, :email, class: "form-control" %>
+      <%= text_input f, :email,
+                        class: "form-control",
+                        placeholder: "Your email",
+                        required: true,
+                        pattern: "^[^@\\s]+@[^@\\s]+\\.[^@\\s]{2,}$" %>
       <%= error_tag f, :email %>
     </div>
   <% end %>
 
   <div class="form-group">
-    <%= label f, :password, class: "control-label" %>
-    <%= password_input f, :password, class: "form-control" %>
+    <%= password_input f, :password,
+                          class: "form-control",
+                          required: true,
+                          placeholder: "Your password" %>
     <%= error_tag f, :password %>
   </div>
 
   <div class="form-group">
-    <%= label f, :password_confirmation, class: "control-label" %>
-    <%= password_input f, :password_confirmation, class: "form-control" %>
+    <%= password_input f, :password_confirmation,
+                          class: "form-control",
+                          required: true,
+                          placeholder: "Confirm your password" %>
     <%= error_tag f, :password_confirmation %>
   </div>
 
