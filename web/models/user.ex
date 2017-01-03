@@ -46,7 +46,6 @@ defmodule PhoenixAppTemplate.User do
     struct
     |> cast(params, [:name, :email])
     |> validate_required([:name, :email])
-    |> validate_format(:email, ~r/@/)
     |> update_change(:email, &String.downcase/1)
     |> unique_constraint(:email)
   end
